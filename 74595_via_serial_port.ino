@@ -1,3 +1,9 @@
+/*=====================================================================
+ * Using a 74595 to illustrate Shift Register concepts. 
+ * 
+ * See associated wiki for the wiring schematic.       
+ */
+
 #define DATA_PIN  A0
 #define CLK_PIN   A1
 #define LATCH_PIN A2
@@ -21,6 +27,7 @@ void latch_data( void )
   digitalWrite(LATCH_PIN, LOW);
 }
 
+/* NOTE:  We're not currenly writing bytes, but I'm leaving this in here for future use */
 #define BITS_IN_BYTE 8
 void write_and_latch_byte( int data )
 {
@@ -104,7 +111,6 @@ void setup()
   print_help();  
 }
 
-#define DELAY_TIME 1000
 void loop() 
 {
   char input;
