@@ -78,9 +78,6 @@ void write_and_latch_byte( int data )
   data &= 0xFF;
     
   temp_data = data;
-
-  Serial.print("Byte: ");
-  Serial.println(data);
   
   for (i = 0; i < BITS_IN_BYTE; i++)
   {
@@ -127,6 +124,7 @@ void setup()
   int i;
   
   Serial.begin(9600);
+  Wire.begin();
 
   pinMode(DATA_PIN, OUTPUT);
   pinMode(CLK_PIN, OUTPUT);
@@ -159,9 +157,11 @@ void setup()
   {
     write_bit(0);
   }
+  
+  delay(1000);
+  
   latch_data();
 
-  delay(1000);
 
   Serial.println("Shift version:  Initialization done.");
   print_help();  
@@ -236,11 +236,6 @@ void loop()
   if (touchpot_enabled)
   {
     current_tp_value = read_tp_value();
-
-    Serial.print("Current: ");
-    Serial.print(current_tp_value);
-    Serial.print(", Last: ");
-    Serial.println(last_tp_value);
     
     if (current_tp_value != last_tp_value)
     {
@@ -248,11 +243,14 @@ void loop()
       last_tp_value = current_tp_value;
       
       Serial.print("Touchpot :");
-      Serial.println(current_tp_value);
+      Serial.print(current_tp_value);
+      Serial.print(" hex=");
+      Serial.print(current_tp_value, HEX);
+      Serial.print(" binary=");
+      Serial.println(current_tp_value, BIN);
     }
   }
 
-  delay(50);
 }
 
 
